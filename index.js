@@ -10,11 +10,30 @@ import nodemailer from "nodemailer";
 //     console.log(account);
 // })
 
-// nodemailer.createTransport({
-//     host: "smtp.ethereal.email",
-//     port: 587,
-//     secure: false
-// })
+const transporter = nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
+    secure: false,
+    auth:{
+        user: 'palrhl57hnxnxkhj@ethereal.email',
+        pass: '4ZWPtAvr4gcZnMUB19'
+
+    }
+})
+
+cron.schedule('*/1 * * * *', async () => {
+   const info = await transporter.sendMail({
+        from: "cristianpietrobon2019@gmail.com",
+        to:  "cristianpietrobon2019@gmail.com",
+        subject: "asesoria Web",
+        text: "Hello World!!!"
+    })
+    console.log(info.messageId);
+
+    const previewURL = nodemailer.getTestMessageUrl(info);
+
+    console.log(previewURL);
+})
 
 // cron.schedule('38 22 31 7 *', () => {
 //     console.log('Ejecutando!!!!');
